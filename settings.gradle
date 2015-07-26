@@ -1,0 +1,6 @@
+rootProject.name = 'conifer'
+include 'conifer-node'
+include 'conifer-mesos'
+include 'conifer-thrift'
+include 'conifer-metrics'
+

@@ -1,0 +1,11 @@
+group 'com.orbitz.conifer'
+version '0.1'
+
+apply plugin: 'java'
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+

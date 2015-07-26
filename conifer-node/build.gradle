@@ -1,0 +1,57 @@
+group 'com.orbitz.conifer'
+version '0.1'
+
+apply plugin: 'scala'
+apply plugin: 'application'
+apply plugin: 'docker'
+
+mainClassName = "com.orbitz.conifer.node.Main"
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+configurations.compile.exclude module: 'javax.ws.rs-api'
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.7'
+
+    compile 'com.hazelcast:hazelcast-all:3.5'
+    compile 'javax.cache:cache-api:1.0.0'
+
+    compile 'com.google.inject:guice:+'
+    compile 'com.google.inject.extensions:guice-servlet:4.0'
+
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'com.sun.jersey.contribs:jersey-guice:1.19'
+    compile 'com.sun.jersey:jersey-json:1.19'
+    compile 'org.eclipse.jetty:jetty-servlet:9.3.1.v20150714'
+    compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.0'
+
+    compile 'com.typesafe:config:1.3.0'
+
+    compile project(':conifer-thrift')
+    compile project(':conifer-metrics')
+}
+
+docker {
+    baseImage "jeanblanchard/busybox-java:8"
+    maintainer 'Rick Fast "rick.fast@orbitz.com"'
+    tag = "rickfast/${applicationName}:0.1"
+}
+
+task nginxDocker(type: Docker) {
+    applicationName = "conifer"
+
+}

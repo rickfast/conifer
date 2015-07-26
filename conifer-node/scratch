@@ -1,0 +1,31 @@
+//class ConiferModule extends JerseyServletModule {
+//
+//  override def configureServlets(): Unit = {
+//    bind(classOf[DefaultServlet]).in(Scopes.SINGLETON)
+//    bind(classOf[CacheResource]).in(Scopes.SINGLETON)
+//
+//    bind(classOf[MessageBodyReader[Object]]).to(classOf[JacksonJsonProvider])
+//    bind(classOf[MessageBodyWriter[Object]]).to(classOf[JacksonJsonProvider])
+//
+//    serve("/*").`with`(classOf[GuiceContainer],
+//      ImmutableMap.of("com.sun.jersey.api.json.POJOMappingFeature", "true"))
+//  }
+//
+//  @Provides
+//  @Singleton
+//  def config(): com.typesafe.config.Config = ConfigFactory.load()
+//
+//  @Provides
+//  @Singleton
+//  def hazelcast(@Inject config: com.typesafe.config.Config): HazelcastInstance = {
+//    val joinConfig = new JoinConfig()
+//
+//    joinConfig.getTcpIpConfig.setEnabled(true)
+//    joinConfig.getTcpIpConfig.addMember(config.getString("join.host"))
+//    joinConfig.getMulticastConfig.setEnabled(false)
+//
+//    Hazelcast.newHazelcastInstance(
+//      new Config().setNetworkConfig(
+//        new NetworkConfig().setJoin(joinConfig)))
+//  }
+//}

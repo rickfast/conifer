@@ -1,0 +1,8 @@
+group 'com.orbitz.conifer'
+version '0.1'
+
+apply plugin: 'java'
+
+dependencies {
+    compile 'com.facebook.swift:swift-service:0.15.1'
+}
