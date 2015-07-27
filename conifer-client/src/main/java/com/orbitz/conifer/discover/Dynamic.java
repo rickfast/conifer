@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.google.common.net.HostAndPort.fromParts;
@@ -25,8 +23,7 @@ public class Dynamic implements Discovery {
     private ConcurrentMap<String, ConiferCache> cachedClients;
     private AtomicReference<List<ConiferCache>> clients;
     private Nodes nodes;
-    private ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private Random random;
+    private Random random = new Random();
 
     public Dynamic(HostAndPort master) {
         final ThriftClientManager clientManager = new ThriftClientManager();
