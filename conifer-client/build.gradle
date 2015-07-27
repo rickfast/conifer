@@ -1,0 +1,16 @@
+group 'com.orbitz.conifer'
+version '0.1'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile project(':conifer-thrift')
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

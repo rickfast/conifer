@@ -8,11 +8,11 @@ import com.facebook.swift.codec.ThriftStruct;
 public final class ConiferItem {
 
     private final String key;
-    private final String contentType;
+    private final ContentType contentType;
     private final byte[] content;
 
     @ThriftConstructor
-    public ConiferItem(String key, String contentType, byte[] content) {
+    public ConiferItem(String key, ContentType contentType, byte[] content) {
         this.key = key;
         this.contentType = contentType;
         this.content = content;
@@ -24,7 +24,7 @@ public final class ConiferItem {
     }
 
     @ThriftField(2)
-    public String getContentType() {
+    public ContentType getContentType() {
         return contentType;
     }
 
