@@ -1,13 +1,16 @@
 package com.orbitz.conifer.node
 
+import akka.actor.{ActorRef, Props, ActorSystem}
 import com.facebook.swift.codec.guice.ThriftCodecModule
 import com.facebook.swift.service.ThriftServer
 import com.facebook.swift.service.guice.ThriftServerModule
 import com.facebook.swift.service.guice.ThriftServiceExporter._
 import com.google.common.collect.ImmutableMap
 import com.google.inject._
+import com.google.inject.name.Named
 import com.hazelcast.config.{Config, JoinConfig, NetworkConfig}
 import com.hazelcast.core.{Hazelcast, HazelcastInstance}
+import com.orbitz.conifer.node.stats.CacheStatsActor
 import com.orbitz.conifer.node.thrift.CacheService
 import com.typesafe.config.{Config => Configuration, ConfigFactory}
 import io.airlift.configuration.{ConfigurationModule, ConfigurationFactory}
@@ -37,6 +40,17 @@ class ConiferModule extends Module {
     Hazelcast.newHazelcastInstance(
       new Config().setNetworkConfig(
         new NetworkConfig().setJoin(joinConfig)))
+  }
+
+  @Provides
+  @Singleton
+  def actorSystem(): ActorSystem = ActorSystem("conifer")
+
+  @Provides
+  @Singleton
+  @Named("cacheStatsActor")
+  def cacheStatsActor(system: ActorSystem, hazelcast: HazelcastInstance): ActorRef = {
+    system.actorOf(Props(classOf[CacheStatsActor], hazelcast))
   }
 }
 
